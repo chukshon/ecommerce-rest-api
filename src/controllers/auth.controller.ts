@@ -15,5 +15,12 @@ export const signUp = async (req: Request, res: Response) => {
     throw Error("User already exists");
   }
 
+  user = await prismaClient.user.create({
+    data: {
+      email,
+      name,
+      password: hashSync(password, 10),
+    },
+  });
   res.send("Signup working");
 };
