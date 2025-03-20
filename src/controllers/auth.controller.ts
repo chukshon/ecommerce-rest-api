@@ -38,5 +38,9 @@ export const login = async (req: Request, res: Response) => {
     throw Error("User does not exist");
   }
 
+  if (!compareSync(password, user.password)) {
+    throw Error("Incorrect password");
+  }
+
   res.json(user);
 };
