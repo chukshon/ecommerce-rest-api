@@ -3,14 +3,14 @@
 export class HttpExceptions extends Error {
   message: string;
   statusCode: number;
-  errorCode: any;
-  errors: ErrorCodes;
+  errorCode: ErrorCodes;
+  errors: any;
 
   constructor(
     message: string,
     statusCode: number,
-    errorCode: string,
-    errors: ErrorCodes
+    errorCode: ErrorCodes,
+    errors: any
   ) {
     super(message);
     this.message = message;
