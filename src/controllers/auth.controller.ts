@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { prismaClient } from "../index";
-import { hashSync } from "bcrypt";
+import { hashSync, compareSync } from "bcrypt";
 
 export const signUp = async (req: Request, res: Response) => {
   const { email, name, password } = req.body;
@@ -26,7 +26,7 @@ export const signUp = async (req: Request, res: Response) => {
 };
 
 export const login = async (req: Request, res: Response) => {
-  const { email, name } = req.body;
+  const { email, password } = req.body;
 
   let user = await prismaClient.user.findFirst({
     where: {
@@ -37,4 +37,6 @@ export const login = async (req: Request, res: Response) => {
   if (!user) {
     throw Error("User does not exist");
   }
+
+  res.json(user);
 };
