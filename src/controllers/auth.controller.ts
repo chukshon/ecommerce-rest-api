@@ -27,4 +27,14 @@ export const signUp = async (req: Request, res: Response) => {
 
 export const login = async (req: Request, res: Response) => {
   const { email, name } = req.body;
+
+  let user = await prismaClient.user.findFirst({
+    where: {
+      email,
+    },
+  });
+
+  if (!user) {
+    throw Error("User does not exist");
+  }
 };
