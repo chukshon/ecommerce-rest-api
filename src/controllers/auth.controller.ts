@@ -1,6 +1,8 @@
 import { Request, Response } from "express";
 import { prismaClient } from "../index";
 import { hashSync, compareSync } from "bcrypt";
+import jwt from "jsonwebtoken";
+import { JWT_SECRET } from "../secrets";
 
 export const signUp = async (req: Request, res: Response) => {
   const { email, name, password } = req.body;
@@ -42,5 +44,7 @@ export const login = async (req: Request, res: Response) => {
     throw Error("Incorrect password");
   }
 
-  res.json(user);
+  const token = jwt.sign({ id: user.id }, JWT_SECRET);
+
+  res.json({ user, token });
 };
