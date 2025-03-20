@@ -24,3 +24,7 @@ export const signUp = async (req: Request, res: Response) => {
   });
   res.json(user);
 };
+
+export const login = async (req: Request, res: Response) => {
+  const { email, name } = req.body;
+};
