@@ -5,7 +5,7 @@ import jwt from "jsonwebtoken";
 import { JWT_SECRET } from "../secrets";
 import { BadRequestsException, NotFoundException } from "../exceptions/index";
 import { ErrorCodes } from "../exceptions/root";
-import { SignUpSchema } from "../schema/users";
+import { SignUpSchema, LoginSchema } from "../schema/users";
 
 export const signUp = async (
   req: Request,
@@ -39,6 +39,7 @@ export const signUp = async (
 };
 
 export const login = async (req: Request, res: Response) => {
+  LoginSchema.parse(req.body);
   const { email, password } = req.body;
 
   let user = await prismaClient.user.findFirst({
