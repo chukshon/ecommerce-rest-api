@@ -4,7 +4,6 @@ import { hashSync, compareSync } from "bcrypt";
 import jwt from "jsonwebtoken";
 import { JWT_SECRET } from "../secrets";
 import { BadRequestsException } from "../exceptions/bad-requests";
-import { UnprocessableEntity } from "../exceptions/validation";
 import { ErrorCodes } from "../exceptions/root";
 import { SignUpSchema } from "../schema/users";
 
