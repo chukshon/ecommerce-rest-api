@@ -6,7 +6,7 @@ import { JWT_SECRET } from "../secrets";
 import { BadRequestsException } from "../exceptions/bad-requests";
 import { ErrorCodes } from "../exceptions/root";
 import { SignUpSchema } from "../schema/users";
-
+import { NotFoundException } from "../exceptions/not-found";
 export const signUp = async (
   req: Request,
   res: Response,
@@ -48,7 +48,7 @@ export const login = async (req: Request, res: Response) => {
   });
 
   if (!user) {
-    throw Error("User does not exist");
+    throw new NotFoundException("User not found", ErrorCodes.NOT_FOUND);
   }
 
   if (!compareSync(password, user.password)) {
