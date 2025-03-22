@@ -52,7 +52,10 @@ export const login = async (req: Request, res: Response) => {
   }
 
   if (!compareSync(password, user.password)) {
-    throw Error("Incorrect password");
+    throw new BadRequestsException(
+      "Incorrect password",
+      ErrorCodes.INCORRECT_PASSWORD
+    );
   }
 
   const token = jwt.sign({ id: user.id }, JWT_SECRET);
