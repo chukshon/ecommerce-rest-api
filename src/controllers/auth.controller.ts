@@ -3,10 +3,10 @@ import { prismaClient } from "../index";
 import { hashSync, compareSync } from "bcrypt";
 import jwt from "jsonwebtoken";
 import { JWT_SECRET } from "../secrets";
-import { BadRequestsException } from "../exceptions/bad-requests";
+import { BadRequestsException, NotFoundException } from "../exceptions/index";
 import { ErrorCodes } from "../exceptions/root";
 import { SignUpSchema } from "../schema/users";
-import { NotFoundException } from "../exceptions/not-found";
+
 export const signUp = async (
   req: Request,
   res: Response,
