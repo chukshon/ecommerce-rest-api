@@ -59,11 +59,11 @@ export const login = async (req: Request, res: Response) => {
     );
   }
 
-  const token = jwt.sign({ id: user.id }, JWT_SECRET);
+  const token = jwt.sign({ userId: user.id }, JWT_SECRET);
 
   res.json({ user, token });
 };
 
 export const me = async (req: Request, res: Response) => {
-  res.json(req.user);
+  res.json((req as any).user);
 };

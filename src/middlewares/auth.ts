@@ -30,7 +30,7 @@ export const authMiddleware = async (
       next(new UnauthorizedException("Unauthorized", ErrorCodes.UNAUTHORIZED));
     }
 
-    req.user = user as User;
+    (req as any).user = user;
     next();
   } catch (error) {
     next(new UnauthorizedException("Unauthorized", ErrorCodes.UNAUTHORIZED));
