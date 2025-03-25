@@ -5,6 +5,6 @@ import { errorHandler } from "../error-handler";
 
 const productsRoutes: Router = Router();
 
-productsRoutes.post("/", errorHandler(createProduct));
+productsRoutes.post("/", [authMiddleware], errorHandler(createProduct));
 
 export default productsRoutes;
