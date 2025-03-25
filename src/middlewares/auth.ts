@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { UnauthorizedException } from "../exceptions/unauthorized";
+import { ErrorCodes } from "../exceptions/root";
 
 export const authMiddleware = (
   req: Request,
@@ -13,4 +14,8 @@ export const authMiddleware = (
   // Attach the user to the current request object;
 
   const token = req.headers.authorization;
+
+  if (!token) {
+    next(new UnauthorizedException("Unauthorized", ErrorCodes.UNAUTHORIZED));
+  }
 };
