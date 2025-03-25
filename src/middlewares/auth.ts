@@ -11,14 +11,14 @@ export const authMiddleware = async (
   res: Response,
   next: NextFunction
 ) => {
-  const token = req.headers.authorization;
+  const token = req.headers.authorization?.replace("Bearer ", "")!;
 
   if (!token) {
     next(new UnauthorizedException("Unauthorized", ErrorCodes.UNAUTHORIZED));
   }
 
   try {
-    const payload = jwt.verify(token as string, JWT_SECRET) as any;
+    const payload = jwt.verify(token, JWT_SECRET) as any;
 
     const user = await prismaClient.user.findFirst({
       where: {
