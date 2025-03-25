@@ -2,9 +2,11 @@ import { Request, Response, NextFunction } from "express";
 import { UnauthorizedException } from "../exceptions/unauthorized";
 import { ErrorCodes } from "../exceptions/root";
 import { JWT_SECRET } from "../secrets";
-import jwt from "jsonwebtoken";
+import * as jwt from "jsonwebtoken";
+import { prismaClient } from "../index";
+import { User } from "@prisma/client";
 
-export const authMiddleware = (
+export const authMiddleware = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -15,5 +17,22 @@ export const authMiddleware = (
     next(new UnauthorizedException("Unauthorized", ErrorCodes.UNAUTHORIZED));
   }
 
-  const payload = jwt.verify(token as string, JWT_SECRET);
+  try {
+    const payload = jwt.verify(token as string, JWT_SECRET) as any;
+
+    const user = await prismaClient.user.findFirst({
+      where: {
+        id: payload.userId,
+      },
+    });
+
+    if (!user) {
+      next(new UnauthorizedException("Unauthorized", ErrorCodes.UNAUTHORIZED));
+    }
+
+    req.user = user as User;
+    next();
+  } catch (error) {
+    next(new UnauthorizedException("Unauthorized", ErrorCodes.UNAUTHORIZED));
+  }
 };
