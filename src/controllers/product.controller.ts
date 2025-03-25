@@ -19,3 +19,5 @@ export const updateProduct = async (req: Request, res: Response) => {};
 export const deleteProduct = async (req: Request, res: Response) => {};
 
 export const getProducts = async (req: Request, res: Response) => {};
+
+export const getProductById = async (req: Request, res: Response) => {};
