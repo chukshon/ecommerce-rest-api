@@ -13,3 +13,5 @@ export const createProduct = async (req: Request, res: Response) => {
 
   res.json(product);
 };
+
+export const updateProduct = async (req: Request, res: Response) => {};

@@ -1,5 +1,8 @@
 import { Router } from "express";
-import { createProduct } from "../controllers/product.controller";
+import {
+  createProduct,
+  updateProduct,
+} from "../controllers/product.controller";
 import { authMiddleware } from "../middlewares/auth";
 import { adminMiddleware } from "../middlewares/admin";
 import { errorHandler } from "../error-handler";
@@ -10,6 +13,11 @@ productsRoutes.post(
   "/",
   [authMiddleware, adminMiddleware],
   errorHandler(createProduct)
+);
+productsRoutes.put(
+  "/:id",
+  [authMiddleware, adminMiddleware],
+  errorHandler(updateProduct)
 );
 
 export default productsRoutes;
