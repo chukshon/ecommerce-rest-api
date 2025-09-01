@@ -14,7 +14,9 @@ export const createProduct = async (req: Request, res: Response) => {
   res.json(product);
 };
 
-export const updateProduct = async (req: Request, res: Response) => {};
+export const updateProduct = async (req: Request, res: Response) => {
+  console.log("hello");
+};
 
 export const deleteProduct = async (req: Request, res: Response) => {};
 
