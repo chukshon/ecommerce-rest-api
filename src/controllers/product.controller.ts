@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { prismaClient } from "../index";
 import { ProductSchema } from "../schema/product";
 import { NotFoundException } from "../exceptions";
-import { ErrorCodes, ErrorMessages } from "../types";
+import { ErrorCodes } from "../types";
 
 export const createProduct = async (req: Request, res: Response) => {
   ProductSchema.parse(req.body);
@@ -35,7 +35,18 @@ export const updateProduct = async (req: Request, res: Response) => {
   }
 };
 
-export const deleteProduct = async (req: Request, res: Response) => {};
+export const deleteProduct = async (req: Request, res: Response) => {
+  try {
+    await prismaClient.product.delete({
+      where: {
+        id: Number(req.params.id),
+      },
+    });
+    res.json({ message: "Product Deleted Successfully" });
+  } catch (error) {
+    throw new NotFoundException("Product Not Found", ErrorCodes.NOT_FOUND);
+  }
+};
 
 export const getProducts = async (req: Request, res: Response) => {};
 
