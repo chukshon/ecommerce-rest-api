@@ -1,7 +1,11 @@
-import { ErrorCodes } from "./types";
+import { ErrorCodes, ErrorMessages } from "./types";
 import { HttpExceptions } from "./exceptions/root";
 import { InternalException } from "./exceptions/internal-exception";
 import { Request, Response, NextFunction } from "express";
+import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
+import { ZodError } from "zod";
+import { UnprocessableEntity } from "./exceptions/validation";
+import { BadRequestsException } from "./exceptions/bad-requests";
 
 export const errorHandler = (method: Function) => {
   return async (req: Request, res: Response, next: NextFunction) => {
@@ -12,11 +16,19 @@ export const errorHandler = (method: Function) => {
       if (err instanceof HttpExceptions) {
         exception = err;
       } else {
-        exception = new InternalException(
-          "Something went wrong",
-          err,
-          ErrorCodes.INTERNAL_SERVER_ERROR
-        );
+        if (err instanceof ZodError) {
+          exception = new BadRequestsException(
+            ErrorMessages.UNPROCESSABLE_ENTITY,
+            ErrorCodes.UNPROCESSABLE_ENTITY,
+            err
+          );
+        } else {
+          exception = new InternalException(
+            "Something went wrong",
+            err,
+            ErrorCodes.INTERNAL_SERVER_ERROR
+          );
+        }
       }
 
       next(exception);
