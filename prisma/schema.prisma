@@ -37,7 +37,7 @@ model Address {
   lineTwo   String? 
   city      String
   country   String
-  pinCode   String
+  pinCode   String @db.VarChar(6)
   userId    Int
   user     User @relation(fields: [userId], references: [id]) 
   createdAt DateTime @default(now())
