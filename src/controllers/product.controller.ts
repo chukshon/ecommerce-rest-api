@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { prismaClient } from "../index";
 import { ProductSchema } from "../schema/product";
 import { NotFoundException } from "../exceptions";
-import { ErrorCodes } from "../types";
+import { ErrorCodes, ErrorMessages } from "../types";
 
 export const createProduct = async (req: Request, res: Response) => {
   ProductSchema.parse(req.body);
@@ -31,7 +31,10 @@ export const updateProduct = async (req: Request, res: Response) => {
 
     res.json(updatedProduct);
   } catch (error) {
-    throw new NotFoundException("Product Not Found", ErrorCodes.NOT_FOUND);
+    throw new NotFoundException(
+      ErrorMessages.PRODUCT_NOT_FOUND,
+      ErrorCodes.NOT_FOUND
+    );
   }
 };
 
@@ -66,6 +69,9 @@ export const getProductById = async (req: Request, res: Response) => {
     });
     res.json(product);
   } catch (error) {
-    throw new NotFoundException("Product Not Found", ErrorCodes.NOT_FOUND);
+    throw new NotFoundException(
+      ErrorMessages.PRODUCT_NOT_FOUND,
+      ErrorCodes.NOT_FOUND
+    );
   }
 };

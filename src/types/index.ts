@@ -16,4 +16,5 @@ export enum ErrorMessages {
   INTERNAL_SERVER_ERROR = "Internal server error",
   NOT_FOUND = "Not found",
   UNAUTHORIZED = "Unauthorized",
+  PRODUCT_NOT_FOUND = "Product not found",
 }
