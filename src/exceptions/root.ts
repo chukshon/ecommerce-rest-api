@@ -1,5 +1,4 @@
-//message, statusCode, errorCode, errors
-
+import { ErrorCodes } from "../types";
 export class HttpExceptions extends Error {
   message: string;
   statusCode: number;
@@ -18,14 +17,4 @@ export class HttpExceptions extends Error {
     this.errorCode = errorCode;
     this.errors = errors;
   }
-}
-
-export enum ErrorCodes {
-  USER_NOT_FOUND = 1001,
-  USER_ALREADY_EXISTS = 1002,
-  INCORRECT_PASSWORD = 1003,
-  UNPROCESSABLE_ENTITY = 2001,
-  INTERNAL_SERVER_ERROR = 3001,
-  NOT_FOUND = 4001,
-  UNAUTHORIZED = 4011,
 }

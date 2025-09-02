@@ -1,4 +1,5 @@
-import { HttpExceptions, ErrorCodes } from "./exceptions/root";
+import { ErrorCodes } from "./types";
+import { HttpExceptions } from "./exceptions/root";
 import { InternalException } from "./exceptions/internal-exception";
 import { Request, Response, NextFunction } from "express";
 

@@ -1,6 +1,8 @@
 import { Request, Response } from "express";
 import { prismaClient } from "../index";
 import { ProductSchema } from "../schema/product";
+import { NotFoundException } from "../exceptions";
+import { ErrorCodes, ErrorMessages } from "../types";
 
 export const createProduct = async (req: Request, res: Response) => {
   ProductSchema.parse(req.body);
@@ -15,7 +17,10 @@ export const createProduct = async (req: Request, res: Response) => {
 };
 
 export const updateProduct = async (req: Request, res: Response) => {
-  console.log("hello");
+  try {
+  } catch (error) {
+    throw new NotFoundException(ErrorMessages.NOT_FOUND, ErrorCodes.NOT_FOUND);
+  }
 };
 
 export const deleteProduct = async (req: Request, res: Response) => {};

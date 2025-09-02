@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { UnauthorizedException } from "../exceptions/unauthorized";
-import { ErrorCodes } from "../exceptions/root";
+import { ErrorCodes } from "../types";
 import { JWT_SECRET } from "../secrets";
 import * as jwt from "jsonwebtoken";
 import { prismaClient } from "../index";

@@ -4,7 +4,7 @@ import { hashSync, compareSync } from "bcrypt";
 import jwt from "jsonwebtoken";
 import { JWT_SECRET } from "../secrets";
 import { BadRequestsException, NotFoundException } from "../exceptions/index";
-import { ErrorCodes } from "../exceptions/root";
+import { ErrorCodes } from "../types";
 import { SignUpSchema, LoginSchema } from "../schema/auth";
 
 export const signUp = async (
