@@ -18,8 +18,20 @@ export const createProduct = async (req: Request, res: Response) => {
 
 export const updateProduct = async (req: Request, res: Response) => {
   try {
+    const product = req.body;
+    if (product.tags) {
+      product.tags = product.tags.join(",");
+    }
+    const updatedProduct = await prismaClient.product.update({
+      where: {
+        id: Number(req.params.id),
+      },
+      data: product,
+    });
+
+    res.json(updatedProduct);
   } catch (error) {
-    throw new NotFoundException(ErrorMessages.NOT_FOUND, ErrorCodes.NOT_FOUND);
+    throw new NotFoundException("Product Not Found", ErrorCodes.NOT_FOUND);
   }
 };
 
