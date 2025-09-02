@@ -48,6 +48,13 @@ export const deleteProduct = async (req: Request, res: Response) => {
   }
 };
 
-export const getProducts = async (req: Request, res: Response) => {};
+export const getProducts = async (req: Request, res: Response) => {
+  const count = await prismaClient.product.count();
+  const products = await prismaClient.product.findMany({
+    skip: Number(req.query.skip) || 0,
+    take: Number(req.query.limit) || 10,
+  });
+  res.json({ count, data: products });
+};
 
 export const getProductById = async (req: Request, res: Response) => {};
