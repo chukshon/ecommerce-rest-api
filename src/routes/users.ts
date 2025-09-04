@@ -10,20 +10,12 @@ import { errorHandler } from "../error-handler";
 
 const usersRoutes: Router = Router();
 
-usersRoutes.post(
-  "/address",
-  [authMiddleware, adminMiddleware],
-  errorHandler(addAddress)
-);
+usersRoutes.post("/address", [authMiddleware], errorHandler(addAddress));
 usersRoutes.delete(
   "/address/:id",
-  [authMiddleware, adminMiddleware],
+  [authMiddleware],
   errorHandler(deleteAddress)
 );
-usersRoutes.get(
-  "/address",
-  [authMiddleware, adminMiddleware],
-  errorHandler(listAddress)
-);
+usersRoutes.get("/address", [authMiddleware], errorHandler(listAddress));
 
 export default usersRoutes;
