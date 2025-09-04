@@ -16,6 +16,27 @@ export const addAddress = async (req: Request, res: Response) => {
   res.json(address);
 };
 
-export const deleteAddress = async (req: Request, res: Response) => {};
+export const deleteAddress = async (req: Request, res: Response) => {
+  try {
+    await prismaClient.address.delete({
+      where: {
+        id: Number(req.params.id),
+      },
+    });
+    res.json({ status: true });
+  } catch (error) {
+    throw new NotFoundException(
+      ErrorMessages.ADDRESS_NOT_FOUND,
+      ErrorCodes.ADDRESS_NOT_FOUND
+    );
+  }
+};
 
-export const listAddress = async (req: Request, res: Response) => {};
+export const listAddress = async (req: Request, res: Response) => {
+  const addresses = await prismaClient.address.findMany({
+    where: {
+      userId: (req as any).user?.id,
+    },
+  });
+  res.json(addresses);
+};
