@@ -7,24 +7,10 @@ import { prismaClient } from "..";
 
 export const addAddress = async (req: Request, res: Response) => {
   AddressSchema.parse(req.body);
-  let user: User;
-  try {
-    user = await prismaClient.user.findFirstOrThrow({
-      where: {
-        id: req.body.userId,
-      },
-    });
-  } catch (error) {
-    throw new NotFoundException(
-      ErrorMessages.USER_NOT_FOUND,
-      ErrorCodes.USER_NOT_FOUND
-    );
-  }
-
   const address = await prismaClient.address.create({
     data: {
       ...req.body,
-      userId: user.id,
+      userId: (req as any).user?.id,
     },
   });
   res.json(address);

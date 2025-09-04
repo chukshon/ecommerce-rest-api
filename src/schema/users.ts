@@ -6,5 +6,4 @@ export const AddressSchema = z.object({
   pinCode: z.string().length(6),
   city: z.string(),
   country: z.string(),
-  userId: z.number(),
 });
