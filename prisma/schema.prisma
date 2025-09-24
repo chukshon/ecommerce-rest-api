@@ -16,6 +16,8 @@ model User {
   updatedAt DateTime  @updatedAt
   role      Role      @default(USER)
   addresses Address[]
+  defaultShippingAddress Int?
+  defaultBillingAddress Int?
 
   @@map("users")
 }
