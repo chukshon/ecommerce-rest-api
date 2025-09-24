@@ -3,6 +3,7 @@ import {
   addAddress,
   deleteAddress,
   listAddress,
+  updateUser,
 } from "../controllers/users.controller";
 import { authMiddleware } from "../middlewares/auth";
 import { adminMiddleware } from "../middlewares/admin";
@@ -17,5 +18,6 @@ usersRoutes.delete(
   errorHandler(deleteAddress)
 );
 usersRoutes.get("/address", [authMiddleware], errorHandler(listAddress));
+usersRoutes.put("/", [authMiddleware], errorHandler(updateUser));
 
 export default usersRoutes;
